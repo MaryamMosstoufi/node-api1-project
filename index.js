@@ -1,6 +1,5 @@
 const express = require("express");
 const shortid = require("shortid"); 
-const { response } = require("express");
 
 const server = express();
 server.use(express.json());
@@ -75,12 +74,12 @@ server.delete("/users/:id", (req, res) => {
 server.put("/users/:id", (req, res) => {
   const id = req.params.id;
   const user = users.filter(user => user.id === id);
-  const userIndex = users.findIndex(user => user.id ===id);
+  const userIndex = users.findIndex(user => user.id === id);
   
   if (user.length > 0) {
     if (req.body.name && req.body.bio) {
       users[userIndex] = { ...users[userIndex], ...req.body, id: id }
-      res.status(200).json(user);
+      res.status(200).json(users[userIndex]);
     } else if (!req.body.name || !req.body.bio) {
       res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
     } else {
